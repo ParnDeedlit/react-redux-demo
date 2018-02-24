@@ -1,4 +1,29 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+function increment() {
+  return { type: 'INCREMENT' };
+}
+function decrement() {
+  return { type: 'DECREMENT' };
+}
+function incrementIfOdd() {
+  return (dispatch, getState) => {
+    const value = getState();
+    if (value % 2 === 0) {
+      return;
+    }
+
+    dispatch(increment());
+  };
+}
+function incrementAsync(delay = 1000) {
+  return dispatch => {
+    setTimeout(() => {
+      dispatch(increment());
+    }, delay);
+  };
+}
 
 //reducer函数
 function counter(state = 0, action) {
@@ -11,26 +36,8 @@ function counter(state = 0, action) {
       return state;
   }
 }
-/**
- * 使用这个reducer纯函数代替上面的函数，会发现：
- * 当state为对象时，如果在reducer中修改state，
- * 将会导致新旧state指向一个地址
- */
-// function counter(state = { val: 0 }, action) {
-//   switch (action.type) {
-//     case 'INCREMENT':
-//     state.val++;
-//       return state;
-//     case 'DECREMENT':
-//     state.val--;
-//       return state;
-//     default:
-//       return state;
-//   }
-// }
 
-
-const store = createStore(counter);
+const store = createStore(counter, applyMiddleware(thunk));
 
 let currentValue = store.getState();
 
@@ -42,9 +49,7 @@ const listener = () => {
 
 store.subscribe(listener);
 
-
-store.dispatch({ type: 'INCREMENT' });
-
-store.dispatch({ type: 'INCREMENT' });
-
-store.dispatch({ type: 'DECREMENT' });
+store.dispatch(increment());
+store.dispatch(incrementIfOdd());
+store.dispatch(incrementAsync());
+store.dispatch(decrement());
