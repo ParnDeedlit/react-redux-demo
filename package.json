@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -21,11 +21,22 @@
   },
   "homepage": "https://github.com/ParnDeedlit/react-redux-demo#readme",
   "dependencies": {
+    "prop-types": "^15.6.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0"
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-register": "^6.26.0",
+    "express": "^4.16.2",
+    "webpack": "^3.11.0",
+    "webpack-dev-middleware": "^2.0.6",
+    "webpack-hot-middleware": "^2.21.0"
   }
 }
